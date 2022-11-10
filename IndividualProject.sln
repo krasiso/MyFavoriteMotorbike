@@ -5,6 +5,10 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFavoriteMotorbike", "MyFavoriteMotorbike\MyFavoriteMotorbike.csproj", "{3636FB28-20E2-4C42-9796-283086E26404}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFavoriteMotobike.Infrastructure", "MyFavoriteMotobike.Infrastructure\MyFavoriteMotobike.Infrastructure.csproj", "{5CFAECB3-22E2-4C91-A094-06138A9818AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFavoriteMotorbike.Core", "MyFavoriteMotorbike.Core\MyFavoriteMotorbike.Core.csproj", "{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3636FB28-20E2-4C42-9796-283086E26404}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3636FB28-20E2-4C42-9796-283086E26404}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3636FB28-20E2-4C42-9796-283086E26404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFAECB3-22E2-4C91-A094-06138A9818AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFAECB3-22E2-4C91-A094-06138A9818AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFAECB3-22E2-4C91-A094-06138A9818AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFAECB3-22E2-4C91-A094-06138A9818AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
