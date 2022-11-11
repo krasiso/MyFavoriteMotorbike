@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MyFavoriteMotobike.Infrastructure.Data.Entities
 {
@@ -24,14 +18,5 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public string Name { get; set; } = null!;
 
         public List<Brand> Brands { get; set; } = null!;
-
-        //[Required]
-        //public string FlagUrl { get; set; } = null!;
-
-        //[Required]
-        //public int BrandId { get; set; }
-
-        //[ForeignKey(nameof(BrandId))]
-        //public Brand Brand { get; set; } = null!;
     }
 }

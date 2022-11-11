@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyFavoriteMotorbike.Core.Contracts;
 using MyFavoriteMotorbike.Models;
 using System.Diagnostics;
 
@@ -6,9 +7,18 @@ namespace MyFavoriteMotorbike.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IMotorbikeService motorbikeService;
+
+        public HomeController(IMotorbikeService _motorbikeService)
         {
-            return View();
+            this.motorbikeService = _motorbikeService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await motorbikeService.LastTwoRentedMotorbikes();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

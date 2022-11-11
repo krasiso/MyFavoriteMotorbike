@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFavoriteMotorbike", "MyFavoriteMotorbike\MyFavoriteMotorbike.csproj", "{3636FB28-20E2-4C42-9796-283086E26404}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFavoriteMotorbike", "MyFavoriteMotorbike\MyFavoriteMotorbike.csproj", "{3636FB28-20E2-4C42-9796-283086E26404}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFavoriteMotobike.Infrastructure", "MyFavoriteMotobike.Infrastructure\MyFavoriteMotobike.Infrastructure.csproj", "{5CFAECB3-22E2-4C91-A094-06138A9818AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFavoriteMotorbike.Infrastructure", "MyFavoriteMotobike.Infrastructure\MyFavoriteMotorbike.Infrastructure.csproj", "{5CFAECB3-22E2-4C91-A094-06138A9818AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFavoriteMotorbike.Core", "MyFavoriteMotorbike.Core\MyFavoriteMotorbike.Core.csproj", "{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFavoriteMotorbike.Core", "MyFavoriteMotorbike.Core\MyFavoriteMotorbike.Core.csproj", "{2D60A1E0-5036-411F-AC1C-2C0EDD4AD73B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

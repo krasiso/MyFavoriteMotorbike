@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MyFavoriteMotorbike.Infrastructure.Data;
 using System.Linq.Expressions;
 
-namespace HouseRentingSystem.Infrastructure.Data.Common
+namespace MyFavoriteMotorbike.Infrastructure.Data.Common
 {
     /// <summary>
     /// Implementation of repository access methods

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace HouseRentingSystem.Infrastructure.Data.Common
+namespace MyFavoriteMotorbike.Infrastructure.Data.Common
 {
     /// <summary>
     /// Abstraction of repository access methods
