@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyFavoriteMotorbike.Core.Models.Administrator;
-using MyFavoriteMotorbike.Core.Models.Motorbike;
 
 namespace MyFavoriteMotorbike.Controllers
 {

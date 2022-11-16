@@ -46,6 +46,26 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                 {
                     Id = 6,
                     Name = "Sweden"
+                },
+                new CountryOfOrigin()
+                {
+                    Id = 7,
+                    Name = "Unated States of America"
+                },
+                new CountryOfOrigin()
+                {
+                    Id = 8,
+                    Name = "Spain"
+                },
+                new CountryOfOrigin()
+                {
+                    Id = 9,
+                    Name = "France"
+                },
+                new CountryOfOrigin()
+                {
+                    Id = 10,
+                    Name = "Russia"
                 }
             };
 

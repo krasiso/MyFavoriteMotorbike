@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyFavoriteMotobike.Infrastructure.Data.Configuration;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
-using MyFavoriteMotobike.Infrastructure.Data.Entities.Enums;
 
 namespace MyFavoriteMotorbike.Infrastructure.Data
 {
@@ -16,7 +15,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
         public DbSet<Brand> Brands { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<CountryOfOrigin> CountriesOfOrigin { get; set; } = null!;
-        public DbSet<Engine> Engines { get; set; } = null!;
         public DbSet<Motorbike> Motorbikes { get; set; } = null!;
         public DbSet<UserMotorbikes> UsersMotorbikes { get; set; } = null!;
 
@@ -32,10 +30,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
             builder
                 .Entity<Administrator>()
                 .HasKey(op => new { op.UserId });
-            //builder
-            //    .Entity<Brand>()
-            //    .HasKey(op => new { op.MotorbikeId });
-            
             builder
                 .Entity<UserMotorbikes>()
                 .HasKey(op => new { op.UserId, op.MotorbikeId });

@@ -16,7 +16,7 @@ namespace MyFavoriteMotorbike.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = await motorbikeService.LastTwoRentedMotorbikes();
+            var model = await motorbikeService.LastRentedMotorbikes();
 
             return View(model);
         }

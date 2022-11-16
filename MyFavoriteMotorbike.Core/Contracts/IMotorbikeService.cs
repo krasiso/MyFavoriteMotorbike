@@ -4,6 +4,6 @@ namespace MyFavoriteMotorbike.Core.Contracts
 {
     public interface IMotorbikeService
     {
-        Task<IEnumerable<MotorbikeHomePageModel>> LastTwoRentedMotorbikes();
+        Task<IEnumerable<MotorbikeHomePageModel>> LastRentedMotorbikes();
     }
 }

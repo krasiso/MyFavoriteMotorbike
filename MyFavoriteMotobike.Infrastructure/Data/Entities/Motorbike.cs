@@ -17,7 +17,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public Brand Brand { get; set; } = null!;
 
         [Required]
-        public string Model { get; set; } = null!;
+        public string Variety { get; set; } = null!;
 
         [Required]
         [Precision(18, 2)]
@@ -41,10 +41,5 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         [Column(TypeName = "money")]
         [Precision(18, 2)]
         public decimal PricePerDay { get; set; }
-
-        //public string? RenterId { get; set; }
-
-        //[ForeignKey(nameof(RenterId))]
-        //public User? Renter { get; set; }
     }
 }

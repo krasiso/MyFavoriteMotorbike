@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyFavoriteMotorbike.Core.Models.Administrator
+﻿namespace MyFavoriteMotorbike.Core.Models.Administrator
 {
     public class BecomeAdministratorModel
     {

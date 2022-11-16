@@ -16,11 +16,5 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         [Required]
         [StringLength(20)]
         public string Name { get; set; } = null!;
-
-        //[Required]
-        //public int MotorbikeId { get; set; }
-
-        //[ForeignKey(nameof(MotorbikeId))]
-        //public Motorbike Motorbike { get; set; } = null!;
     }
 }

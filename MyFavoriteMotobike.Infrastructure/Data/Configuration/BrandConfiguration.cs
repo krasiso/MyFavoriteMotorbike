@@ -61,6 +61,56 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                 {
                     Id = 9,
                     Name = "Husaberg"
+                },
+                new Brand()
+                {
+                    Id = 10,
+                    Name = "Harley Davidson"
+                },
+                new Brand()
+                {
+                    Id = 11,
+                    Name = "Indian"
+                },
+                new Brand()
+                {
+                    Id = 12,
+                    Name = "Royal Enfield"
+                },
+                new Brand()
+                {
+                    Id = 13,
+                    Name = "Husqvarna"
+                },
+                new Brand()
+                {
+                    Id = 14,
+                    Name = "Ural"
+                },
+                new Brand()
+                {
+                    Id = 15,
+                    Name = "Gima Motorcycles"
+                },
+                new Brand()
+                {
+                    Id = 16,
+                    Name = "GasGas"
+                },
+                new Brand()
+                {
+                    Id = 17,
+                    Name = "Sherco"
+                },
+                new Brand()
+                {
+                    Id = 18,
+                    Name = "Scorpa"
+                },
+                new Brand()
+                {
+                    Id = 19,
+                    Name = "Dnepr M-72"
                 }
             };
 

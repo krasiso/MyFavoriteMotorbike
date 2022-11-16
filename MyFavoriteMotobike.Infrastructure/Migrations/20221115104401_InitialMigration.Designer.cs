@@ -9,11 +9,11 @@ using MyFavoriteMotorbike.Infrastructure.Data;
 
 #nullable disable
 
-namespace MyFavoriteMotobike.Infrastructure.Migrations
+namespace MyFavoriteMotorbike.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221110172224_SeedDb")]
-    partial class SeedDb
+    [Migration("20221115104401_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -325,6 +325,56 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         {
                             Id = 9,
                             Name = "Husaberg"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Harley Davidson"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Indian"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Royal Enfield"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Husqvarna"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Ural"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Gima Motorcycles"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "GasGas"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Sherco"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Scorpa"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Dnepr M-72"
                         });
                 });
 
@@ -369,7 +419,7 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            Name = "Custom"
+                            Name = "Standard"
                         },
                         new
                         {
@@ -380,6 +430,26 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         {
                             Id = 7,
                             Name = "Dual Sport"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Custom"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Cafe Racer"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Stunt"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Trial"
                         });
                 });
 
@@ -430,29 +500,27 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         {
                             Id = 6,
                             Name = "Sweden"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Unated States of America"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Spain"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "France"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Russia"
                         });
-                });
-
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.Engine", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CoolingType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfStrokes")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Engines");
                 });
 
             modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.Motorbike", b =>
@@ -478,17 +546,10 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int?>("EngineId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PricePerDay")
                         .HasPrecision(18, 2)
@@ -497,13 +558,15 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Variety")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("EngineId");
 
                     b.HasIndex("UserId");
 
@@ -517,9 +580,9 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CategoryId = 1,
                             CubicCentimeters = 250.00m,
                             Description = "This bike is for racing and amateur riding on a motocross track!",
-                            ImageUrl = "https://content2.kawasaki.com/ContentStorage/KMC/ProductTrimGroup/56/1c0de86b-e024-4e09-8ba6-bd08b77344e5.jpg?w=750",
-                            Model = "KX",
-                            PricePerDay = 100.00m
+                            ImageUrl = "https://xoffroad.dueruote.it/content/dam/xoffroad/it/news/moto/2020/10/13/hot-news-arrivano-le-kawasaki-kx-250-450-x/gallery/rsmall/kawa%201.jpg",
+                            PricePerDay = 100.00m,
+                            Variety = "KX"
                         },
                         new
                         {
@@ -528,9 +591,9 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CategoryId = 2,
                             CubicCentimeters = 450.00m,
                             Description = "This bike is for riding through mountains and off-road terrain!",
-                            ImageUrl = "https://www.motofichas.com/images/cache/honda-crf450x-2011-739-a.jpg",
-                            Model = "CRF",
-                            PricePerDay = 100.00m
+                            ImageUrl = "https://www.motowag.com/wp-content/uploads/2022/05/honda-crf450x.jpg",
+                            PricePerDay = 100.00m,
+                            Variety = "CRF"
                         },
                         new
                         {
@@ -540,8 +603,8 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CubicCentimeters = 1300.00m,
                             Description = "This bike is for riding on the road and it's one of the fastest bikes ever!",
                             ImageUrl = "https://dizzyriders.bg/uploads/thumbs/gallery/2021-02/fe6c02c5a7fe382814b184f1c9e0bb62-620x427.jpg",
-                            Model = "Hayabusa",
-                            PricePerDay = 200.00m
+                            PricePerDay = 200.00m,
+                            Variety = "Hayabusa"
                         },
                         new
                         {
@@ -550,9 +613,9 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CategoryId = 4,
                             CubicCentimeters = 1250.00m,
                             Description = "This bike is for long and comfortable riding on the road!",
-                            ImageUrl = "https://dizzyriders.bg/uploads/thumbs/gallery/2021-02/fe6c02c5a7fe382814b184f1c9e0bb62-620x427.jpg",
-                            Model = "R1250RT",
-                            PricePerDay = 200.00m
+                            ImageUrl = "https://ultimatemotorcycling.com/wp-content/uploads/2021/07/2022-bmw-r-1250-rt-first-look-sport-touring-motorcycle-10.jpg",
+                            PricePerDay = 200.00m,
+                            Variety = "R1250RT"
                         },
                         new
                         {
@@ -562,8 +625,8 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CubicCentimeters = 900.00m,
                             Description = "This bike is for easy riding on the road!",
                             ImageUrl = "https://imgd.aeplcdn.com/1280x720/bw/models/triumph-street-twin-2021-standard20210401131021.jpg?q=80",
-                            Model = "Street Twin",
-                            PricePerDay = 100.00m
+                            PricePerDay = 100.00m,
+                            Variety = "Street Twin"
                         },
                         new
                         {
@@ -573,8 +636,8 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CubicCentimeters = 155.00m,
                             Description = "This bike is for riding on the road mostly in the city!",
                             ImageUrl = "https://www.indiacarnews.com/wp-content/uploads/2019/03/Yamaha-MT-15-International.jpg",
-                            Model = "MT-15",
-                            PricePerDay = 100.00m
+                            PricePerDay = 100.00m,
+                            Variety = "MT-15"
                         },
                         new
                         {
@@ -584,8 +647,41 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                             CubicCentimeters = 990.00m,
                             Description = "This adventure is for almost any terreain!",
                             ImageUrl = "https://mcn-images.bauersecure.com/wp-images/19502/951x634/990_adventure_dakar.jpg?mode=max&quality=90&scale=down",
-                            Model = "Adventure",
-                            PricePerDay = 100.00m
+                            PricePerDay = 100.00m,
+                            Variety = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BrandId = 10,
+                            CategoryId = 9,
+                            CubicCentimeters = 1868.00m,
+                            Description = "This bike outstanding cafe racer!",
+                            ImageUrl = "https://www.harley-davidson.com/content/dam/h-d/images/product-images/bikes/motorcycle/2022/2022-fat-boy-114/gallery/2022-fat-boy-114-motorcycle-g2.jpg?impolicy=myresize&rw=820",
+                            PricePerDay = 200.00m,
+                            Variety = "Fat Boy"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BrandId = 11,
+                            CategoryId = 9,
+                            CubicCentimeters = 1811.00m,
+                            Description = "This bike is greatest chief of indians!",
+                            ImageUrl = "https://www.webbikeworld.com/wp-content/uploads/2022/07/2022-Indian-Scout-Bobber-Sixty-4.jpg",
+                            PricePerDay = 200.00m,
+                            Variety = "Super Chief"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BrandId = 6,
+                            CategoryId = 2,
+                            CubicCentimeters = 300.00m,
+                            Description = "This bike is magnificent mountain climber!",
+                            ImageUrl = "https://enduro21.com/images/2021/november-2021/2022-beta-300-rx/2022_beta_300_rx_1.jpg",
+                            PricePerDay = 100.00m,
+                            Variety = "RR300 2T"
                         });
                 });
 
@@ -615,15 +711,15 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         {
                             Id = "81693837-9353-4dac-a5f2-4eade35a30f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "27b38051-36a8-4a52-a62b-e142776b37ea",
+                            ConcurrencyStamp = "d914c741-276b-4bb2-be3b-f1b92451f72b",
                             Email = "administrator@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "administrator@mail.com",
                             NormalizedUserName = "administrator@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH0hJB1lI0Y1UXJwR1o9jc1HlMW6+snB44arY/9D4VO3rNT5Fmdh4w+dpq/fIVhfQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDjQYPrt735LfOrH1NA8MTQyBaPqvbc4Ftfe/Gz9MyUOhp22k5S9/NySv3Ns50pjzA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "31aa8050-645d-44e0-a2c7-ba8c17e3b872",
+                            SecurityStamp = "e88b6786-b729-463d-8982-a7ac985302d6",
                             TwoFactorEnabled = false,
                             UserName = "administrator@mail.com"
                         },
@@ -631,15 +727,15 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         {
                             Id = "8700b0e1-1cc6-4e31-81d8-0dc734f1d679",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af2f4339-47f2-46a7-a7d2-03e2025ae8d1",
+                            ConcurrencyStamp = "96599989-7857-414d-be1e-3550ec078c70",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKNqsOgtVrVX+2KCcC5lK0kYm9meI2G+4gxcroLqG6XS1FoLYPZmWbYMFXv/aXiMog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEONtA0xQ5ShPSgmHqWDlwE17l9d+B9HmMe1nVoSELmURzxk9IV9qfa0eY3A6UffmkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bbb1a6e9-0f3a-472a-9641-5b86f0a03af9",
+                            SecurityStamp = "1684d2c8-a526-4656-8d48-f2921ee31909",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -728,10 +824,6 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.Engine", null)
-                        .WithMany("Motorbikes")
-                        .HasForeignKey("EngineId");
-
                     b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", null)
                         .WithMany("Motorbikes")
                         .HasForeignKey("UserId");
@@ -768,11 +860,6 @@ namespace MyFavoriteMotobike.Infrastructure.Migrations
             modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.CountryOfOrigin", b =>
                 {
                     b.Navigation("Brands");
-                });
-
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.Engine", b =>
-                {
-                    b.Navigation("Motorbikes");
                 });
 
             modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.User", b =>

@@ -15,18 +15,18 @@ namespace MyFavoriteMotorbike.Core.Services
             repo = _repo;
         }
 
-        public async Task<IEnumerable<MotorbikeHomePageModel>> LastTwoRentedMotorbikes()
+        public async Task<IEnumerable<MotorbikeHomePageModel>> LastRentedMotorbikes()
         {
             return await repo.AllReadonly<Motorbike>()
                 .OrderByDescending(m => m.Id)
-                .Select(m => new MotorbikeHomePageModel() 
+                .Select(m => new MotorbikeHomePageModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand.Name,
-                    Model = m.Model,
+                    Model = m.Variety,
                     ImageUrl = m.ImageUrl
                 })
-                .Take(2)
+                .Take(7)
                 .ToListAsync();
         }
     }

@@ -40,7 +40,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                 new Category()
                 {
                     Id = 5,
-                    Name = "Custom"
+                    Name = "Standard"
                 },
                 new Category()
                 {
@@ -51,6 +51,26 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                 {
                     Id = 7,
                     Name = "Dual Sport"
+                },
+                new Category()
+                {
+                    Id = 8,
+                    Name = "Custom"
+                },
+                new Category()
+                {
+                    Id = 9,
+                    Name = "Cafe Racer"
+                },
+                new Category()
+                {
+                    Id = 10,
+                    Name = "Stunt"
+                },
+                new Category()
+                {
+                    Id = 11,
+                    Name = "Trial"
                 }
             };
 
