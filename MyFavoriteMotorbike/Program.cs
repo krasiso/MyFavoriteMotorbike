@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
+using MyFavoriteMotobike.ModelBinders;
 using MyFavoriteMotorbike.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,11 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.Password.RequireNonAlphanumeric = false;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    });
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
