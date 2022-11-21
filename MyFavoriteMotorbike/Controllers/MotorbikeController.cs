@@ -1,18 +1,38 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyFavoriteMotorbike.Core.Contracts;
 using MyFavoriteMotorbike.Core.Models.Motorbike;
+using MyFavoriteMotorbike.Extensions;
 
 namespace MyFavoriteMotorbike.Controllers
 {
     [Authorize]
     public class MotorbikeController : Controller
     {
-        [AllowAnonymous]
-        public async Task<IActionResult> All()
-        {
-            var model = new MotorbikesViewModel();
+        private readonly IMotorbikeService motorbikeService;
 
-            return View(model);
+        private readonly IAdministratorService administratorService;
+
+        public MotorbikeController(IMotorbikeService _motorbikeService, IAdministratorService _administratorService)
+        {
+            motorbikeService = _motorbikeService;
+            administratorService = _administratorService;
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> All([FromQuery] AllMotorbikesQueryModel query)
+        {
+            var result = await motorbikeService.All(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllMotorbikesQueryModel.MotorbikesPerPage);
+
+            query.TotalMotorbikesCount = result.TotalMotorbikesCount;
+            query.Categories = await motorbikeService.AllCategoriesNames();
+
+            return View(query);
         }
 
         public async Task<IActionResult> Mine()
@@ -31,12 +51,44 @@ namespace MyFavoriteMotorbike.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add() => View();
+        public async Task<IActionResult> Add()
+        {
+            if ((await administratorService.ExistsById(User.Id())) == false)
+            {
+                return RedirectToAction(nameof(AdministratorController.Become), "Administrator");
+            }
+
+            var model = new MotorbikeModel()
+            {
+                MotorbikeCategories = await motorbikeService.AllCategories()
+            };
+
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add(MotorbikeModel model)
         {
-            int id = 1;
+            if (await administratorService.ExistsById(User.Id()))
+            {
+                return RedirectToAction(nameof(AdministratorController.Become), "Administrator");
+            }
+
+            if (await motorbikeService.CategoryExists(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.MotorbikeCategories = await motorbikeService.AllCategories();
+
+                return View(model);
+            }
+
+            int administratorId = await administratorService.GetAdministratorId(User.Id());
+
+            int id = await motorbikeService.Create(model, administratorId);
 
             return RedirectToAction(nameof(Details), new { id });
         }
@@ -55,11 +107,11 @@ namespace MyFavoriteMotorbike.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
         
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return RedirectToAction(nameof(All));
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    return RedirectToAction(nameof(All));
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Rent(int id)

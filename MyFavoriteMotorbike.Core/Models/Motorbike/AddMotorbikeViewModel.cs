@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyFavoriteMotobike.Infrastructure.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyFavoriteMotorbike.Core.Models.Motorbike
 {
-    public class MotorbikeModel
+    public class AddMotorbikeViewModel
     {
-        [Display(Name = "Brand")]
-        public int BrandId { get; set; }
-
         [Required]
         [StringLength(30, MinimumLength = 2)]
         public string Brand { get; set; } = null!;
@@ -23,14 +21,8 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
         [Required]
         public string ImageUrl { get; set; } = null!;
 
-        [Required]
-        [Display(Name = "Price per day")]
-        [Range(0.00, 2000.00, ErrorMessage = "Price per day must be positive number and less than {2} euro")]
-        public decimal PricePerDay { get; set; }
-
-        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public IEnumerable<MotorbikeCategoryModel> MotorbikeCategories { get; set; } = new List<MotorbikeCategoryModel>();
+        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
     }
 }

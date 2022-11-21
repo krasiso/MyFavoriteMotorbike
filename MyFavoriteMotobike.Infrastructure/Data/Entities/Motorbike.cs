@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -41,5 +40,16 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         [Column(TypeName = "money")]
         [Precision(18, 2)]
         public decimal PricePerDay { get; set; }
+
+        [Required]
+        public int AdministratorId { get; set; }
+
+        [ForeignKey(nameof(AdministratorId))]
+        public Administrator Administrator { get; set; } = null!;
+
+        public string? RenterId { get; set; }
+
+        [ForeignKey(nameof(RenterId))]
+        public User? Renter { get; set; }
     }
 }

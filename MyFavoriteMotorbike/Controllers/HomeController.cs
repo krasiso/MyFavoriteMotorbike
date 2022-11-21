@@ -11,7 +11,7 @@ namespace MyFavoriteMotorbike.Controllers
 
         public HomeController(IMotorbikeService _motorbikeService)
         {
-            this.motorbikeService = _motorbikeService;
+            motorbikeService = _motorbikeService;
         }
 
         public async Task<IActionResult> Index()
