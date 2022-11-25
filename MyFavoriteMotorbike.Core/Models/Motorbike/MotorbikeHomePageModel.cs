@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyFavoriteMotorbike.Core.Models.Motorbike
+﻿namespace MyFavoriteMotorbike.Core.Models.Motorbike
 {
     public class MotorbikeHomePageModel
     {
@@ -12,7 +6,7 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
 
         public string Brand { get; set; } = null!;
 
-        public string Model { get; set; } = null!;
+        public string Variety { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
     }

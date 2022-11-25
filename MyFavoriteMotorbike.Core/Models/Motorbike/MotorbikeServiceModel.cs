@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace MyFavoriteMotorbike.Core.Models.Motorbike
 {
@@ -14,7 +15,7 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
         public string ImageUrl { get; init; } = null!;
 
         [Display(Name = "Price per day")]
-        [Range(0.00, 2000.00, ErrorMessage = "Price per day must be positive number and less than {2} euro!")]
+        [Range(0.00, 2000.00, ErrorMessage = "Price per day must be positive number and more than {1} euro!")]
         public decimal PricePerDay { get; init; }
 
         [Display(Name = "Is Rented")]

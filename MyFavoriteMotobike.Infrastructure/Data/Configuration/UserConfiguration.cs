@@ -26,7 +26,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                 NormalizedEmail = "administrator@mail.com"
             };
 
-            user.PasswordHash = hasher.HashPassword(user, "agent123");
+            user.PasswordHash = hasher.HashPassword(user, "administrator123");
 
             users.Add(user);
 

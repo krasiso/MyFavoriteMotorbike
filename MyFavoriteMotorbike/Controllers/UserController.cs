@@ -8,16 +8,16 @@ namespace MyFavoriteMotorbike.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<IdentityUser> userManager;
 
-        private readonly SignInManager<User> signInManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
         public UserController(
-            UserManager<User> _userManager,
-            SignInManager<User> _signInManager)
+            UserManager<IdentityUser> _userManager,
+            SignInManager<IdentityUser> _signInManager)
         {
-            this.userManager = _userManager;
-            this.signInManager = _signInManager;
+            userManager = _userManager;
+            signInManager = _signInManager;
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace MyFavoriteMotorbike.Controllers
                 return View(model);
             }
 
-            var user = new User()
+            var user = new IdentityUser()
             {
                 Email = model.Email,
                 UserName = model.Username

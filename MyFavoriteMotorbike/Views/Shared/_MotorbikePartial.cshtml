@@ -2,12 +2,12 @@
 
 <div class="col-md-4"> 
     <div class="card mb-3"> 
-        <img class="card-img-top" src="@Model.ImageUrl" alt="House Image"> 
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Motorbike Image"> 
         <div class="card-body text-center">
             <h4>@Model.Brand</h4> 
-            <h6>Address: <b>@Model.Variety</b></h6> 
+            <h6>Variety: <b>@Model.Variety</b></h6> 
             <h6> 
-                Price Per Month: 
+                Price Per Day: 
                 <b>@String.Format("{0:f2}", Model.PricePerDay) EUR</b> 
             </h6> 
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6> 

@@ -11,8 +11,20 @@ namespace MyFavoriteMotobike.ModelBinders
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (context.Metadata.ModelType == typeof(Decimal) 
-                || context.Metadata.ModelType == typeof(Decimal?))
+            if (context.Metadata.ModelType == typeof(decimal) 
+                || context.Metadata.ModelType == typeof(decimal?))
+            {
+                return new DecimalModelBinder();
+            }
+
+            if (context.Metadata.ModelType == typeof(float)
+                || context.Metadata.ModelType == typeof(float?))
+            {
+                return new DecimalModelBinder();
+            }
+
+            if (context.Metadata.ModelType == typeof(double)
+                || context.Metadata.ModelType == typeof(double?))
             {
                 return new DecimalModelBinder();
             }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
 using MyFavoriteMotorbike.Core.Contracts;
+using MyFavoriteMotorbike.Core.Exceptions;
 using MyFavoriteMotorbike.Core.Models.Motorbike;
 using MyFavoriteMotorbike.Core.Models.Sorting;
 using MyFavoriteMotorbike.Infrastructure.Data.Common;
@@ -11,9 +12,14 @@ namespace MyFavoriteMotorbike.Core.Services
     {
         private readonly IRepository repo;
 
-        public MotorbikeService(IRepository _repo)
+        private readonly IGuard guard;
+
+        public MotorbikeService(
+            IRepository _repo,
+            IGuard _guard)
         {
             repo = _repo;
+            guard = _guard;
         }
 
         public async Task<MotorbikesQueryModel> All(
@@ -24,7 +30,8 @@ namespace MyFavoriteMotorbike.Core.Services
             int motorbikesPerPage = 1)
         {
             var result = new MotorbikesQueryModel();
-            var motorbikes = repo.AllReadonly<Motorbike>();
+            var motorbikes = repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive);
 
             if (string.IsNullOrEmpty(category) == false)
             {
@@ -36,7 +43,7 @@ namespace MyFavoriteMotorbike.Core.Services
             {
                 searchTerm = $"%{searchTerm.ToLower()}%";
                 motorbikes = motorbikes
-                    .Where(m => EF.Functions.Like(m.Brand.Name, searchTerm) ||
+                    .Where(m => EF.Functions.Like(m.Brand.Name.ToLower(), searchTerm) ||
                                 EF.Functions.Like(m.Variety.ToLower(), searchTerm) ||
                                 EF.Functions.Like(m.Description.ToLower(), searchTerm));
             }
@@ -58,8 +65,8 @@ namespace MyFavoriteMotorbike.Core.Services
                     Brand = m.Brand.Name,
                     Id = m.Id,
                     ImageUrl = m.ImageUrl,
-                    IsRented = m.RenterId != null,
                     PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId != null
                 })
                 .ToListAsync();
 
@@ -88,6 +95,38 @@ namespace MyFavoriteMotorbike.Core.Services
                 .ToListAsync();
         }
 
+        //public async Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByAdministratorId(int id)
+        //{
+        //    return await repo.AllReadonly<Motorbike>()
+        //        .Where(m => m.IsActive)
+        //        //.Where(m => m.AdministratorId == Administrator.Id)
+        //        .Select(m => new MotorbikeServiceModel()
+        //        {
+        //            Brand = m.Brand.Name,
+        //            Id = m.Id,
+        //            ImageUrl = m.ImageUrl,
+        //            PricePerDay = m.PricePerDay,
+        //            IsRented = m.RenterId != null
+        //        })
+        //        .ToListAsync();
+        //}
+
+        public async Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByUserId(string userId)
+        {
+            return await repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive)
+                .Where(m => m.RenterId == userId)
+                .Select(m => new MotorbikeServiceModel()
+                {
+                    Brand = m.Brand.Name,
+                    Id = m.Id,
+                    ImageUrl = m.ImageUrl,
+                    PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId != null
+                })
+                .ToListAsync();
+        }
+
         public async Task<bool> CategoryExists(int categoryId)
         {
             return await repo.AllReadonly<Category>()
@@ -103,8 +142,7 @@ namespace MyFavoriteMotorbike.Core.Services
                 CubicCentimeters = model.CubicCentimeters,
                 ImageUrl = model.ImageUrl,
                 PricePerDay = model.PricePerDay,
-                CategoryId = model.CategoryId,
-                AdministratorId = administratorId
+                CategoryId = model.CategoryId
             };
 
             await repo.AddAsync(motorbike);
@@ -113,19 +151,158 @@ namespace MyFavoriteMotorbike.Core.Services
             return motorbike.Id;
         }
 
+        public async Task Delete(int motorbikeId)
+        {
+            var motorbike = await repo.GetByIdAsync<Motorbike>(motorbikeId);
+            motorbike.IsActive = false;
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task Edit(int motorbikeId, MotorbikeModel model)
+        {
+            var motorbike = await repo.GetByIdAsync<Motorbike>(motorbikeId);
+
+            motorbike.BrandId = model.BrandId;
+            motorbike.Variety = model.Variety;
+            motorbike.CubicCentimeters = model.CubicCentimeters;
+            motorbike.ImageUrl = model.ImageUrl;
+            motorbike.PricePerDay = model.PricePerDay;
+            motorbike.CategoryId = model.CategoryId;
+        }
+
+        public async Task<bool> Exists(int id)
+        {
+            return await repo.AllReadonly<Motorbike>()
+                .AnyAsync(m => m.Id == id && m.IsActive);
+        }
+
+        public async Task<IEnumerable<MotorbikeServiceModel>> GetMineAsync(string userId)
+        {
+            var user = await repo.GetByIdAsync<User>(userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.Motorbikes
+                .Select(m => new MotorbikeServiceModel()
+                {
+                    Id = m.Id,
+                    Brand = m.Brand.Name,
+                    Variety = m.Variety,
+                    ImageUrl = m.ImageUrl,
+                    PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId == userId
+                });
+        }
+
+        public async Task<int> GetMotorbikeCategoryId(int motorbikeId)
+        {
+            return (await repo.GetByIdAsync<Motorbike>(motorbikeId))
+                .CategoryId;
+        }
+
+        //public async Task<bool> HasAdministratorWithId(int motorbikeId, string currentUserId)
+        //{
+        //    bool result = false;
+        //    var motorbike = await repo.AllReadonly<Motorbike>()
+        //        .Where(m => m.IsActive)
+        //        .Where(m => m.Id == motorbikeId)
+        //        //.Include(m => m.Administrator)
+        //        .FirstOrDefaultAsync();
+
+        //    if (motorbike?.Administrator != null && motorbike.Administrator.UserId == currentUserId)
+        //    {
+        //        result = true;
+        //    }
+
+        //    return result;
+        //}
+
+        public async Task<bool> IsRented(int motorbikeId)
+        {
+            return (await repo.GetByIdAsync<Motorbike>(motorbikeId)).RenterId != null;
+        }
+
+        public async Task<bool> IsRentedByUserWithId(int motorbikeId, string currentUserId)
+        {
+            bool result = false;
+            var motorbike = await repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive && m.Id == motorbikeId)
+                .FirstOrDefaultAsync();
+
+            if (motorbike != null && motorbike.RenterId == currentUserId)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<MotorbikeHomePageModel>> LastRentedMotorbikes()
         {
             return await repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive)
                 .OrderByDescending(m => m.Id)
                 .Select(m => new MotorbikeHomePageModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand.Name,
-                    Model = m.Variety,
+                    Variety = m.Variety,
                     ImageUrl = m.ImageUrl
                 })
                 .Take(7)
                 .ToListAsync();
+        }
+
+        public async Task<MotorbikeDetailsModel> MotorbikeDetailsById(int id)
+        {
+            return await repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive)
+                .Where(m => m.Id == id)
+                .Select(m => new MotorbikeDetailsModel()
+                {
+                    Id = id,
+                    Brand = m.Brand.Name,
+                    Variety = m.Variety,
+                    ImageUrl = m.ImageUrl,
+                    PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId != null,
+                    Description = m.Description,
+                    Category = m.Category.Name,
+                    //Administrator = new Models.Administrator.AdministratorServiceModel()
+                    //{
+                    //    PhoneNumber = m.Administrator.PhoneNumber,
+                    //    Email = m.Administrator.User.Email
+                    //}
+                })
+                .FirstAsync();
+        }
+
+        public async Task Rent(int motorbikeId, string currentUserId)
+        {
+            var motorbike = await repo.GetByIdAsync<Motorbike>(motorbikeId);
+
+            if (motorbike != null && motorbike.RenterId != null)
+            {
+                throw new ArgumentException("Motorbike is already rented!");
+            }
+
+            guard.AgainstNull(motorbike, "This motorbike can not be found!");
+            motorbike.RenterId = currentUserId;
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task Vacate(int motorbikeId)
+        {
+            var motorbike = await repo.GetByIdAsync<Motorbike>(motorbikeId);
+            guard.AgainstNull(motorbike, "This motorbike can not be found!");
+
+            motorbike.RenterId = null;
+            await repo.SaveChangesAsync();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
 using MyFavoriteMotobike.ModelBinders;

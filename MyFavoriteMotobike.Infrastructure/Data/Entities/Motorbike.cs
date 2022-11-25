@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,12 +9,6 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public int BrandId { get; set; }
-
-        [ForeignKey(nameof(BrandId))]
-        public Brand Brand { get; set; } = null!;
 
         [Required]
         public string Variety { get; set; } = null!;
@@ -30,11 +25,6 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         [StringLength(300)]
         public string ImageUrl { get; set; } = null!;
 
-        [Required]
-        public int CategoryId { get; set; }
-
-        [ForeignKey(nameof(CategoryId))]
-        public Category Category { get; set; } = null!;
 
         [Required]
         [Column(TypeName = "money")]
@@ -42,14 +32,30 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public decimal PricePerDay { get; set; }
 
         [Required]
-        public int AdministratorId { get; set; }
+        public int CategoryId { get; set; }
 
-        [ForeignKey(nameof(AdministratorId))]
-        public Administrator Administrator { get; set; } = null!;
+        [ForeignKey(nameof(CategoryId))]
+        public Category Category { get; set; } = null!;
+
+        public bool IsActive { get; set; }
+
+        //[Required]
+        //public int AdministratorId { get; set; }
+
+        //[ForeignKey(nameof(AdministratorId))]
+        //public Administrator Administrator { get; set; } = null!;
+
+        [Required]
+        public int BrandId { get; set; }
+
+        [ForeignKey(nameof(BrandId))]
+        public Brand Brand { get; set; } = null!;
 
         public string? RenterId { get; set; }
 
         [ForeignKey(nameof(RenterId))]
-        public User? Renter { get; set; }
+        public IdentityUser? Renter { get; set; }
+
+        public List<UserMotorbike> UserMotorbikes { get; set; }
     }
 }

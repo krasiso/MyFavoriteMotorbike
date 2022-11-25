@@ -31,8 +31,10 @@
                 <label asp-for="Sorting"></label> 
                 <select asp-for="Sorting" class="form-control"> 
                     <option value="0">Newest</option> 
-                    <option value="1">Lowest price first</option> 
-                    <option value="2">Not rented first</option> 
+                    <option value="1">Oldest</option>
+                    <option value="2">Lowest price first</option> 
+                    <option value="3">Highest price first</option>
+                    <option value="4">Not rented first</option> 
                 </select> 
             </div> 
         </div> 
@@ -86,7 +88,7 @@
 
 @if (!Model.Motorbikes.Any()) 
 { 
-    <h2 class="text-center">No houses found by the given criteria!</h2> 
+    <h2 class="text-center">No motorbikes found by the given criteria!</h2> 
 } 
 
 <div class="row"> 

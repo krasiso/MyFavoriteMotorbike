@@ -17,5 +17,31 @@ namespace MyFavoriteMotorbike.Core.Contracts
             int motorbikesPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNames();
+
+        //Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByAdministratorId(int id);
+
+        Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByUserId(string userId);
+
+        Task<MotorbikeDetailsModel> MotorbikeDetailsById(int id);
+
+        Task<bool> Exists(int id);
+
+        Task Edit(int motorbikeId, MotorbikeModel model);
+
+        //Task<bool> HasAdministratorWithId(int motorbikeId, string currentUserId);
+
+        Task<int> GetMotorbikeCategoryId(int motorbikeId);
+
+        Task<IEnumerable<MotorbikeServiceModel>> GetMineAsync(string userId);
+
+        Task Delete(int motorbikeId);
+
+        Task<bool> IsRented(int motorbikeId);
+
+        Task<bool> IsRentedByUserWithId(int motorbikeId, string currentUserId);
+
+        Task Vacate(int motorbikeId);
+
+        Task Rent(int motorbikeId, string currentUserId);
     }
 }
