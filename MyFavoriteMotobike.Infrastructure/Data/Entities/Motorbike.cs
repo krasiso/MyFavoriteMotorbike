@@ -43,7 +43,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public int GoldenClientId { get; set; }
 
         [ForeignKey(nameof(GoldenClientId))]
-        public GoldenClient GoldenClient { get; set; } = null!;
+        public GoldenClient GoldenClient { get; set; }
 
         [Required]
         public int BrandId { get; set; }
