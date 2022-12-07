@@ -8,6 +8,6 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
 
         public string Category { get; set; } = null!;
 
-        //public AdministratorServiceModel Administrator { get; set; }
+        public GoldenClientServiceModel GoldenClient { get; set; }
     }
 }

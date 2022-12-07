@@ -22,7 +22,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     Variety = "KX",
                     CubicCentimeters = 250.00M,
                     Description = "This bike is for racing and amateur riding on a motocross track!",
-                    ImageUrl = "https://xoffroad.dueruote.it/content/dam/xoffroad/it/news/moto/2020/10/13/hot-news-arrivano-le-kawasaki-kx-250-450-x/gallery/rsmall/kawa%201.jpg",
+                    ImageUrl = "https://content2.kawasaki.com/ContentStorage/KMC/Products/8711/c5b45b1d-afef-445c-a721-671cf7b09dcb.png?w=850",
                     CategoryId = 1,
                     PricePerDay = 100.00M,
                 },

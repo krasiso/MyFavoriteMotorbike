@@ -95,21 +95,21 @@ namespace MyFavoriteMotorbike.Core.Services
                 .ToListAsync();
         }
 
-        //public async Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByAdministratorId(int id)
-        //{
-        //    return await repo.AllReadonly<Motorbike>()
-        //        .Where(m => m.IsActive)
-        //        //.Where(m => m.AdministratorId == Administrator.Id)
-        //        .Select(m => new MotorbikeServiceModel()
-        //        {
-        //            Brand = m.Brand.Name,
-        //            Id = m.Id,
-        //            ImageUrl = m.ImageUrl,
-        //            PricePerDay = m.PricePerDay,
-        //            IsRented = m.RenterId != null
-        //        })
-        //        .ToListAsync();
-        //}
+        public async Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByGoldenClientId(int id)
+        {
+            return await repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive)
+                //.Where(m => m.GoldenClientId == GoldenClient.Id)
+                .Select(m => new MotorbikeServiceModel()
+                {
+                    Brand = m.Brand.Name,
+                    Id = m.Id,
+                    ImageUrl = m.ImageUrl,
+                    PricePerDay = m.PricePerDay,
+                    IsRented = m.RenterId != null
+                })
+                .ToListAsync();
+        }
 
         public async Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByUserId(string userId)
         {
@@ -133,7 +133,7 @@ namespace MyFavoriteMotorbike.Core.Services
                 .AnyAsync(c => c.Id == categoryId);
         }
 
-        public async Task<int> Create(MotorbikeModel model, int administratorId)
+        public async Task<int> Create(MotorbikeModel model)
         {
             var motorbike = new Motorbike()
             {
@@ -204,22 +204,22 @@ namespace MyFavoriteMotorbike.Core.Services
                 .CategoryId;
         }
 
-        //public async Task<bool> HasAdministratorWithId(int motorbikeId, string currentUserId)
-        //{
-        //    bool result = false;
-        //    var motorbike = await repo.AllReadonly<Motorbike>()
-        //        .Where(m => m.IsActive)
-        //        .Where(m => m.Id == motorbikeId)
-        //        //.Include(m => m.Administrator)
-        //        .FirstOrDefaultAsync();
+        public async Task<bool> HasGoldenClientWithId(int motorbikeId, string currentUserId)
+        {
+            bool result = false;
+            var motorbike = await repo.AllReadonly<Motorbike>()
+                .Where(m => m.IsActive)
+                .Where(m => m.Id == motorbikeId)
+                //.Include(m => m.GoldenClient)
+                .FirstOrDefaultAsync();
 
-        //    if (motorbike?.Administrator != null && motorbike.Administrator.UserId == currentUserId)
-        //    {
-        //        result = true;
-        //    }
+            if (motorbike?.GoldenClient != null && motorbike.GoldenClient.UserId == currentUserId)
+            {
+                result = true;
+            }
 
-        //    return result;
-        //}
+            return result;
+        }
 
         public async Task<bool> IsRented(int motorbikeId)
         {

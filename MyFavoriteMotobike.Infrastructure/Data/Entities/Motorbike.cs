@@ -39,11 +39,11 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
 
         public bool IsActive { get; set; }
 
-        //[Required]
-        //public int AdministratorId { get; set; }
+        [Required]
+        public int GoldenClientId { get; set; }
 
-        //[ForeignKey(nameof(AdministratorId))]
-        //public Administrator Administrator { get; set; } = null!;
+        [ForeignKey(nameof(GoldenClientId))]
+        public GoldenClient GoldenClient { get; set; } = null!;
 
         [Required]
         public int BrandId { get; set; }

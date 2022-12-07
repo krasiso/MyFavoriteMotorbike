@@ -21,6 +21,10 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
         public decimal CubicCentimeters { get; set; }
 
         [Required]
+        [StringLength(500)]
+        public string Description { get; set; } = null!;
+
+        [Required]
         public string ImageUrl { get; set; } = null!;
 
         [Required]
@@ -32,5 +36,7 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
         public int CategoryId { get; set; }
 
         public IEnumerable<MotorbikeCategoryModel> MotorbikeCategories { get; set; } = new List<MotorbikeCategoryModel>();
+
+        public IEnumerable<MotorbikeBrandModel> MotorbikeBrands { get; set; } = new List<MotorbikeBrandModel>();
     }
 }

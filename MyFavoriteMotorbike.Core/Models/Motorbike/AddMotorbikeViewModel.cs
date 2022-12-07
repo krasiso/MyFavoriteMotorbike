@@ -19,10 +19,20 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
         public decimal CubicCentimeters { get; set; }
 
         [Required]
+        public string Description { get; set; } = null!;
+
+        [Required]
         public string ImageUrl { get; set; } = null!;
+
+        [Required]
+        [Display(Name = "Price per day")]
+        [Range(0.00, 2000.00, ErrorMessage = "Price per day must be positive number and less than {2} euro")]
+        public decimal PricePerDay { get; set; }
 
         public int CategoryId { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
+        public IEnumerable<MotorbikeCategoryModel> MotorbikeCategories { get; set; } = new List<MotorbikeCategoryModel>();
+
+        //public IEnumerable<Category> Categories { get; set; } = new List<Category>();
     }
 }

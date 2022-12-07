@@ -1,6 +1,6 @@
 ﻿namespace MyFavoriteMotorbike.Core.Models.Administrator
 {
-    public class AdministratorServiceModel
+    public class GoldenClientServiceModel
     {
         public string PhoneNumber { get; set; } = null!;
 

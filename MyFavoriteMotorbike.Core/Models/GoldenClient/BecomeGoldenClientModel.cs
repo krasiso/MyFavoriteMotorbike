@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyFavoriteMotorbike.Core.Models.Administrator
+namespace MyFavoriteMotorbike.Core.Models.GoldenClient
 {
-    public class BecomeAdministratorModel
+    public class BecomeGoldenClientModel
     {
         [Required]
         [StringLength(15, MinimumLength = 7)]

@@ -12,12 +12,12 @@ namespace MyFavoriteMotorbike.Controllers
     {
         private readonly IMotorbikeService motorbikeService;
 
-        //private readonly IAdministratorService administratorService;
+        private readonly IGoldenClientService goldenClientService;
 
-        public MotorbikeController(IMotorbikeService _motorbikeService)//, IAdministratorService _administratorService)
+        public MotorbikeController(IMotorbikeService _motorbikeService, IGoldenClientService _goldenClientService)
         {
             motorbikeService = _motorbikeService;
-            //administratorService = _administratorService;
+            goldenClientService = _goldenClientService;
         }
 
         [AllowAnonymous]
@@ -59,47 +59,47 @@ namespace MyFavoriteMotorbike.Controllers
         }
 
         [HttpGet]
-        //public async Task<IActionResult> Add()
-        //{
-        //    if ((await administratorService.ExistsById(User.Id())) == false)
-        //    {
-        //        return RedirectToAction(nameof(AdministratorController.Become), "Administrator");
-        //    }
+        public async Task<IActionResult> Add()
+        {
+            if ((await goldenClientService.ExistsById(User.Id())) == false)
+            {
+                return RedirectToAction(nameof(GoldenClientController.Become), "GoldenClient");
+            }
 
-        //    var model = new MotorbikeModel()
-        //    {
-        //        MotorbikeCategories = await motorbikeService.AllCategories()
-        //    };
+            var model = new MotorbikeModel()
+            {
+                MotorbikeCategories = await motorbikeService.AllCategories()
+            };
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Add(MotorbikeModel model)
-        //{
-        //    //if (await administratorService.ExistsById(User.Id()))
-        //    //{
-        //    //    return RedirectToAction(nameof(AdministratorController.Become), "Administrator");
-        //    //}
+        [HttpPost]
+        public async Task<IActionResult> Add(MotorbikeModel model)
+        {
+            if (await goldenClientService.ExistsById(User.Id()))
+            {
+                return RedirectToAction(nameof(GoldenClientController.Become), "GoldenClient");
+            }
 
-        //    if (await motorbikeService.CategoryExists(model.CategoryId) == false)
-        //    {
-        //        ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists!");
-        //    }
+            if (await motorbikeService.CategoryExists(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists!");
+            }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        model.MotorbikeCategories = await motorbikeService.AllCategories();
+            if (!ModelState.IsValid)
+            {
+                model.MotorbikeCategories = await motorbikeService.AllCategories();
 
-        //        return View(model);
-        //    }
+                return View(model);
+            }
 
-        //    //int administratorId = await administratorService.GetAdministratorId(User.Id());
+            int goldenClientId = await goldenClientService.GetGoldenClientId(User.Id());
 
-        //    int id = await motorbikeService.Create(model)//, administratorId);
+            int id = await motorbikeService.Create(model);
 
-        //    return RedirectToAction(nameof(Details), new { id });
-        //}
+            return RedirectToAction(nameof(Details), new { id });
+        }
 
         [HttpGet]
         public async Task<IActionResult> Edit()
@@ -114,12 +114,12 @@ namespace MyFavoriteMotorbike.Controllers
         {
             return RedirectToAction(nameof(Details), new { id });
         }
-        
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    return RedirectToAction(nameof(All));
-        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return RedirectToAction(nameof(All));
+        }
 
         [HttpPost]
         public async Task<IActionResult> Rent(int id)

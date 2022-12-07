@@ -5,19 +5,33 @@
         <form method="post">
             <div class="form-group">
                 <label asp-for="Brand"></label>
-                <input asp-for="Brand" class="form-control" placeholder="Title...">
+                <input asp-for="Brand" class="form-control" placeholder="Brand...">
                 <span asp-validation-for="Brand" class="small text-danger"></span>
             </div>
+            @*<div class="form-group">
+                <label asp-for="BrandId"></label>
+                <select asp-for="BrandId" class="form-control">
+                    @foreach (var brand in Model.MotorbikeBrands)
+                    {
+                        <option value="@brand.Id">@brand.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BrandId" class="small text-danger"></span>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Variety"></label>
-                <input asp-for="Variety" class="form-control" placeholder="Address...">
+                <input asp-for="Variety" class="form-control" placeholder="Variety...">
                 <span asp-validation-for="Variety" class="small text-danger"></span>
             </div>
             <div class="form-group">
-
                 <label asp-for="CubicCentimeters"></label>
-                <textarea asp-for="CubicCentimeters" rows="4" class="form-control" placeholder="Two bedrooms..."></textarea>
+                <input asp-for="CubicCentimeters" class="form-control" placeholder="Cubic Centimeters...">
                 <span asp-validation-for="CubicCentimeters" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Description..."></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl"></label>

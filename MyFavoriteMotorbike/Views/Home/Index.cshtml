@@ -8,7 +8,7 @@
 @if (Model.Count() == 0)
 {
     <div class="mt-4 p-5 bg-light">
-        <h1 class="display-4">Welcome to the best place to rent and offer Motorbikes</h1>
+        <h1 class="display-4">Welcome to the best place to offer and rent Motorbikes</h1>
         <p class="lead">
             There are no motorbikes in the system currently available 
             so the system will be happy to add one!
@@ -17,7 +17,7 @@
         <p class="lead">
             @if (this.User?.Identity != null && this.User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Motorbikes" asp-action="Add" class="btn btn-primary btn-lg"
+                <a asp-controller="Motorbike" asp-action="Add" class="btn btn-primary btn-lg"
                     role="button">Add Motorbike</a>
             }
         </p>

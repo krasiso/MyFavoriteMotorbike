@@ -8,7 +8,7 @@ namespace MyFavoriteMotorbike.Core.Contracts
         Task<IEnumerable<MotorbikeHomePageModel>> LastRentedMotorbikes();
         Task<IEnumerable<MotorbikeCategoryModel>> AllCategories();
         Task<bool> CategoryExists(int categoryId);
-        Task<int> Create(MotorbikeModel model, int administratorId);
+        Task<int> Create(MotorbikeModel model);
         Task<MotorbikesQueryModel> All(
             string? category = null,
             string? searchTerm = null,
@@ -18,7 +18,7 @@ namespace MyFavoriteMotorbike.Core.Contracts
 
         Task<IEnumerable<string>> AllCategoriesNames();
 
-        //Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByAdministratorId(int id);
+        Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByGoldenClientId(int id);
 
         Task<IEnumerable<MotorbikeServiceModel>> AllMotorbikesByUserId(string userId);
 
@@ -28,7 +28,7 @@ namespace MyFavoriteMotorbike.Core.Contracts
 
         Task Edit(int motorbikeId, MotorbikeModel model);
 
-        //Task<bool> HasAdministratorWithId(int motorbikeId, string currentUserId);
+        Task<bool> HasGoldenClientWithId(int motorbikeId, string currentUserId);
 
         Task<int> GetMotorbikeCategoryId(int motorbikeId);
 
