@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - My Favorite Motorbike</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyFavoriteMotorbike.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
+    <partial name="_UserMessages" />
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-warning border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -31,7 +34,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Motorbike" asp-action="Add">Add Motorbike</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="GoldenClient" asp-action="Became">GoldenClient</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GoldenClient" asp-action="Became">Golden Client</a>
                             </li>
                         }
                     </ul>
