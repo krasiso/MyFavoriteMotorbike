@@ -16,7 +16,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public IdentityUser User { get; set; } = null!;
 
         [Required]
-        public int MotorbikeId { get; set; }
+        public string MotorbikeId { get; set; } = null!;
 
         [ForeignKey(nameof(MotorbikeId))]
         public Motorbike Motorbike { get; set; } = null!;

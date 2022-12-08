@@ -2,6 +2,7 @@
 using MyFavoriteMotorbike.Core.Contracts;
 using MyFavoriteMotorbike.Models;
 using System.Diagnostics;
+using static MyFavoriteMotorbike.Areas.Admin.Constants.AdminConstants;
 
 namespace MyFavoriteMotorbike.Controllers
 {
@@ -16,6 +17,11 @@ namespace MyFavoriteMotorbike.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Admin", new { area = "Admin" });
+            }
+
             var model = await motorbikeService.LastRentedMotorbikes();
 
             return View(model);

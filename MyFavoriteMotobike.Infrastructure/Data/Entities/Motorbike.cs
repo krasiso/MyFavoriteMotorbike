@@ -40,10 +40,10 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public bool IsActive { get; set; }
 
         [Required]
-        public int GoldenClientId { get; set; }
+        public string GoldenClientId { get; set; } = null!;
 
         [ForeignKey(nameof(GoldenClientId))]
-        public GoldenClient GoldenClient { get; set; }
+        public GoldenClient GoldenClient { get; set; } = null!;
 
         [Required]
         public int BrandId { get; set; }
@@ -56,6 +56,6 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         [ForeignKey(nameof(RenterId))]
         public IdentityUser? Renter { get; set; }
 
-        public List<UserMotorbike> UserMotorbikes { get; set; }
+        public List<UserMotorbike> UserMotorbikes { get; set; } = new List<UserMotorbike>();
     }
 }

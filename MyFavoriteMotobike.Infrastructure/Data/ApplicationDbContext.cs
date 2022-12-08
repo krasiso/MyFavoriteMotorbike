@@ -15,18 +15,18 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfiguration());
-            //builder.ApplyConfiguration(new AdministratorConfiguration());
+            builder.ApplyConfiguration(new GoldenClientConfiguration());
             builder.ApplyConfiguration(new CategoryCongifuration());
             builder.ApplyConfiguration(new MotorbikeConfiguration());
             builder.ApplyConfiguration(new BrandConfiguration());
             builder.ApplyConfiguration(new CountryOfOriginConfiguration());
 
-            //builder
-            //    .Entity<Administrator>()
-            //    .HasKey(op => new { op.UserId });
-            //builder
-            //    .Entity<Motorbike>()
-            //    .HasKey(op => new { op.AdministratorId, op.RenterId });
+            builder
+                .Entity<GoldenClient>()
+                .HasKey(op => new { op.UserId });
+            builder
+                .Entity<Motorbike>()
+                .HasKey(op => new { op.GoldenClientId, op.RenterId });
             builder
                 .Entity<UserMotorbike>()
                 .HasOne(m => m.Motorbike)
@@ -39,7 +39,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<CountryOfOrigin> CountriesOfOrigin { get; set; } = null!;
         public DbSet<Motorbike> Motorbikes { get; set; } = null!;
-        //public DbSet<Administrator> Administrators { get; set; } = null!;
+        public DbSet<GoldenClient> GoldenClients { get; set; } = null!;
         public DbSet<UserMotorbike> UserMotorbikes { get; set; } = null!;
     }
 }

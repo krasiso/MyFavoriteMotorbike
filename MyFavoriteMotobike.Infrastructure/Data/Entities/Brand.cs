@@ -11,6 +11,6 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         [StringLength(20)]
         public string Name { get; set; } = null!;
 
-        public List<UserMotorbike> UserMotorbikes { get; set; }
+        public List<UserMotorbike> UserMotorbikes { get; set; } = new List<UserMotorbike>();
     }
 }
