@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyFavoriteMotobike.Infrastructure.Data.Configuration;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
 
 namespace MyFavoriteMotorbike.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -26,7 +27,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
                 .HasKey(op => new { op.UserId });
             builder
                 .Entity<Motorbike>()
-                .HasKey(op => new { op.GoldenClientId, op.RenterId });
+                .HasKey(op => new { op.GoldenClientId, op.RenterId, op.BrandId, op.CategoryId });
             builder
                 .Entity<UserMotorbike>()
                 .HasOne(m => m.Motorbike)

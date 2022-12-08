@@ -20,13 +20,13 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
             var user = new User()
             {
                 Id = "81693837-9353-4dac-a5f2-4eade35a30f9",
-                UserName = "administrator@mail.com",
-                NormalizedUserName = "administrator@mail.com",
-                Email = "administrator@mail.com",
-                NormalizedEmail = "administrator@mail.com"
+                UserName = "goldenclient@mail.com",
+                NormalizedUserName = "goldenclient@mail.com",
+                Email = "goldenclient@mail.com",
+                NormalizedEmail = "goldenclient@mail.com"
             };
 
-            user.PasswordHash = hasher.HashPassword(user, "administrator123");
+            user.PasswordHash = hasher.HashPassword(user, "goldenclient123");
 
             users.Add(user);
 
