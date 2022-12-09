@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyFavoriteMotorbike.Core.Contracts;
 using MyFavoriteMotorbike.Core.Models.Motorbike;
 using MyFavoriteMotorbike.Extensions;
+using static MyFavoriteMotorbike.Areas.Admin.Constants.AdminConstants;
 using System.Security.Claims;
 
 namespace MyFavoriteMotorbike.Controllers
@@ -20,6 +21,7 @@ namespace MyFavoriteMotorbike.Controllers
             goldenClientService = _goldenClientService;
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllMotorbikesQueryModel query)
         {
@@ -32,17 +34,37 @@ namespace MyFavoriteMotorbike.Controllers
 
             query.TotalMotorbikesCount = result.TotalMotorbikesCount;
             query.Categories = await motorbikeService.AllCategoriesNames();
+            query.Motorbikes = result.Motorbikes;
 
             return View(query);
         }
 
         public async Task<IActionResult> Mine()
-        {
-            //IEnumerable<MotorbikeServiceModel> myFavoriteMotorbikes;
-            var userId = User.Claims.FirstOrDefault(m => m.Type == ClaimTypes.NameIdentifier)?.Value;
-            var model = await motorbikeService.GetMineAsync(userId);
+        {            
+            //var userId = User.Claims.FirstOrDefault(m => m.Type == ClaimTypes.NameIdentifier)?.Value;
+            //var model = await motorbikeService.GetMineAsync(userId);
 
-            return View("Mine", model);
+            //return View("Mine", model);
+
+            if (User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Mine", "House", new { area = AreaName });
+            }
+
+            IEnumerable<MotorbikeServiceModel> myMotorbikes;
+            var userId = User.Id();
+
+            if (await goldenClientService.ExistsById(userId))
+            {
+                int goldenClientId = await goldenClientService.GetGoldenClientId(userId);
+                myMotorbikes = await motorbikeService.AllMotorbikesByGoldenClientId(goldenClientId);
+            }
+            else
+            {
+                myMotorbikes = await motorbikeService.AllMotorbikesByUserId(userId);
+            }
+
+            return View(myMotorbikes);
         }
 
         [AllowAnonymous]
@@ -102,8 +124,13 @@ namespace MyFavoriteMotorbike.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(int id)
         {
+            if ((await motorbikeService.Exists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
             var model = new MotorbikeModel();
 
             return View(model);
@@ -112,6 +139,8 @@ namespace MyFavoriteMotorbike.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, MotorbikeModel model)
         {
+
+
             return RedirectToAction(nameof(Details), new { id });
         }
 
