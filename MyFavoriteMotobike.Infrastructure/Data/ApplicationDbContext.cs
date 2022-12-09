@@ -27,7 +27,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
                 .HasKey(op => new { op.UserId });
             builder
                 .Entity<Motorbike>()
-                .HasKey(op => new { op.GoldenClientId, op.RenterId, op.BrandId, op.CategoryId });
+                .HasKey(op => new { op.GoldenClientId, op.CategoryId, op.BrandId });//, op.RenterId });
             builder
                 .Entity<UserMotorbike>()
                 .HasOne(m => m.Motorbike)
