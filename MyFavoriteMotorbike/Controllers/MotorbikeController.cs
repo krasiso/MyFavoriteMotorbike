@@ -139,15 +139,66 @@ namespace MyFavoriteMotorbike.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, MotorbikeModel model)
         {
+            if (ModelState.IsValid == false)
+            {
+                model.MotorbikeCategories = await motorbikeService.AllCategories();
 
+                return View(model);
+            }
 
-            return RedirectToAction(nameof(Details), new { id });
+            if (id != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await motorbikeService.Exists(model.Id)) == false)
+            {
+                ModelState.AddModelError("", "This motorbike does not exist!");
+                model.MotorbikeCategories = await motorbikeService.AllCategories();
+
+                return View(model);
+            }
+
+            if ((await motorbikeService.HasGoldenClientWithId(model.Id, User.Id())) == false)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await motorbikeService.CategoryExists(model.CategoryId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
+                model.MotorbikeCategories = await motorbikeService.AllCategories();
+
+                return View(model);
+            }
+
+            await motorbikeService.Edit(model.Id, model);
+
+            return RedirectToAction(nameof(Details), new { id = model.Id });
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            return RedirectToAction(nameof(All));
+            if ((await motorbikeService.Exists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if ((await motorbikeService.HasGoldenClientWithId(id, User.Id())) == false)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            var motorbike = await motorbikeService.MotorbikeDetailsById(id);
+            var model = new MotorbikeDetailsViewModel()
+            {
+                Brand = motorbike.Brand,
+                Variety = motorbike.Variety,
+                ImageUrl = motorbike.ImageUrl
+            };
+
+            return View(model);
         }
 
         [HttpPost]

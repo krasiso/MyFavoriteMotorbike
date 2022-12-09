@@ -5,6 +5,8 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
 {
     public class MotorbikeModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Brand")]
         public int BrandId { get; set; }
 
