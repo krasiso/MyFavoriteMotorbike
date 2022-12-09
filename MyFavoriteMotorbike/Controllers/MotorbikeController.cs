@@ -202,11 +202,34 @@ namespace MyFavoriteMotorbike.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Delete(int id, MotorbikeDetailsViewModel model)
+        {
+            if ((await motorbikeService.Exists(id)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if ((await motorbikeService.HasGoldenClientWithId(id, User.Id())) == false)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            await motorbikeService.Delete(id);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Rent(int id)
         {
             if ((await motorbikeService.Exists(id)) == false)
             {
                 return RedirectToAction(nameof(All));
+            }
+
+            if (!User.IsInRole(AdminRoleName) && await goldenClientService.ExistsById(User.Id()))
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
 
             if (await motorbikeService.IsRented(id))
