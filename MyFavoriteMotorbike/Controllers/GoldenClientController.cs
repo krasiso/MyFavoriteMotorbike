@@ -59,7 +59,11 @@ namespace MyFavoriteMotorbike.Controllers
             if (await goldenClientService.UserHasRents(userId))
             {
                 TempData[MessageConstant.ErrorMessage] = "You must have at least 10 bike rentals to become a Golden Client!";
+
+                return RedirectToAction("Index", "Home");
             }
+
+            await goldenClientService.Create(userId, model.PhoneNumber);
 
             return RedirectToAction("All", "Motorbike");
         }
