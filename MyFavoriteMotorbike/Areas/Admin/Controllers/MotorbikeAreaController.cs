@@ -12,7 +12,7 @@ namespace MyFavoriteMotorbike.Areas.Admin.Controllers
         private readonly IGoldenClientService goldenClientService;
 
         public MotorbikeAreaController(
-            IMotorbikeService _motorbikeService, 
+            IMotorbikeService _motorbikeService,
             IGoldenClientService _goldenClientService)
         {
             motorbikeService = _motorbikeService;

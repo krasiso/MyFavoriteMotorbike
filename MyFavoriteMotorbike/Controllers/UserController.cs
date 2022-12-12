@@ -6,15 +6,16 @@ using MyFavoriteMotorbike.Core.Models.User;
 
 namespace MyFavoriteMotorbike.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<User> userManager;
 
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<User> signInManager;
 
         public UserController(
-            UserManager<IdentityUser> _userManager,
-            SignInManager<IdentityUser> _signInManager)
+            UserManager<User> _userManager,
+            SignInManager<User> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
@@ -43,7 +44,7 @@ namespace MyFavoriteMotorbike.Controllers
                 return View(model);
             }
 
-            var user = new IdentityUser()
+            var user = new User()
             {
                 Email = model.Email,
                 UserName = model.Username

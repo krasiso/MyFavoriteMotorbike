@@ -25,6 +25,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://content2.kawasaki.com/ContentStorage/KMC/Products/8711/c5b45b1d-afef-445c-a721-671cf7b09dcb.png?w=850",
                     CategoryId = 1,
                     PricePerDay = 100.00M,
+                    GoldenClientId = 1
                 },
                 new Motorbike()
                 {
@@ -35,7 +36,8 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     Description = "This bike is for riding through mountains and off-road terrain!",
                     ImageUrl = "https://www.motowag.com/wp-content/uploads/2022/05/honda-crf450x.jpg",
                     CategoryId = 2,
-                    PricePerDay = 100.00M
+                    PricePerDay = 100.00M,
+                    GoldenClientId = 2
                 },
                 new Motorbike()
                 {
@@ -47,6 +49,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://dizzyriders.bg/uploads/thumbs/gallery/2021-02/fe6c02c5a7fe382814b184f1c9e0bb62-620x427.jpg",
                     CategoryId = 3,
                     PricePerDay = 200.00M,
+                    GoldenClientId = 1
                 },
                 new Motorbike()
                 {
@@ -57,7 +60,8 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     Description = "This bike is for long and comfortable riding on the road!",
                     ImageUrl = "https://ultimatemotorcycling.com/wp-content/uploads/2021/07/2022-bmw-r-1250-rt-first-look-sport-touring-motorcycle-10.jpg",
                     CategoryId = 4,
-                    PricePerDay = 200.00M
+                    PricePerDay = 200.00M,
+                    GoldenClientId = 2
                 },
                 new Motorbike()
                 {
@@ -69,6 +73,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://imgd.aeplcdn.com/1280x720/bw/models/triumph-street-twin-2021-standard20210401131021.jpg?q=80",
                     CategoryId = 5,
                     PricePerDay = 100.00M,
+                    GoldenClientId = 1
                 },
                 new Motorbike()
                 {
@@ -79,7 +84,8 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     Description = "This bike is for riding on the road mostly in the city!",
                     ImageUrl = "https://www.indiacarnews.com/wp-content/uploads/2019/03/Yamaha-MT-15-International.jpg",
                     CategoryId = 6,
-                    PricePerDay = 100.00M
+                    PricePerDay = 100.00M,
+                    GoldenClientId = 2
                 },
                 new Motorbike()
                 {
@@ -91,6 +97,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://mcn-images.bauersecure.com/wp-images/19502/951x634/990_adventure_dakar.jpg?mode=max&quality=90&scale=down",
                     CategoryId = 7,
                     PricePerDay = 100.00M,
+                    GoldenClientId = 1
                 },
                 new Motorbike()
                 {
@@ -102,6 +109,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://www.harley-davidson.com/content/dam/h-d/images/product-images/bikes/motorcycle/2022/2022-fat-boy-114/gallery/2022-fat-boy-114-motorcycle-g2.jpg?impolicy=myresize&rw=820",
                     CategoryId = 9,
                     PricePerDay = 200.00M,
+                    GoldenClientId = 2
                 },
                 new Motorbike()
                 {
@@ -113,6 +121,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://www.webbikeworld.com/wp-content/uploads/2022/07/2022-Indian-Scout-Bobber-Sixty-4.jpg",
                     CategoryId = 9,
                     PricePerDay = 200.00M,
+                    GoldenClientId = 1
                 },
                 new Motorbike()
                 {
@@ -124,6 +133,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
                     ImageUrl = "https://enduro21.com/images/2021/november-2021/2022-beta-300-rx/2022_beta_300_rx_1.jpg",
                     CategoryId = 2,
                     PricePerDay = 100.00M,
+                    GoldenClientId = 2
                 }
             };
 

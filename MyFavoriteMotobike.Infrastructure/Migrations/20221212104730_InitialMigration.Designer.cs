@@ -12,8 +12,8 @@ using MyFavoriteMotorbike.Infrastructure.Data;
 namespace MyFavoriteMotorbike.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221125123705_ColumnIsActiveAdded")]
-    partial class ColumnIsActiveAdded
+    [Migration("20221212104730_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,77 +74,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -520,6 +449,9 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("GoldenClientId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -535,12 +467,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                     b.Property<string>("RenterId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("UserMotorbikeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Variety")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -551,11 +477,9 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("GoldenClientId");
+
                     b.HasIndex("RenterId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserMotorbikeId");
 
                     b.ToTable("Motorbikes");
 
@@ -567,7 +491,8 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 1,
                             CubicCentimeters = 250.00m,
                             Description = "This bike is for racing and amateur riding on a motocross track!",
-                            ImageUrl = "https://xoffroad.dueruote.it/content/dam/xoffroad/it/news/moto/2020/10/13/hot-news-arrivano-le-kawasaki-kx-250-450-x/gallery/rsmall/kawa%201.jpg",
+                            GoldenClientId = 1,
+                            ImageUrl = "https://content2.kawasaki.com/ContentStorage/KMC/Products/8711/c5b45b1d-afef-445c-a721-671cf7b09dcb.png?w=850",
                             IsActive = false,
                             PricePerDay = 100.00m,
                             Variety = "KX"
@@ -579,6 +504,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 2,
                             CubicCentimeters = 450.00m,
                             Description = "This bike is for riding through mountains and off-road terrain!",
+                            GoldenClientId = 2,
                             ImageUrl = "https://www.motowag.com/wp-content/uploads/2022/05/honda-crf450x.jpg",
                             IsActive = false,
                             PricePerDay = 100.00m,
@@ -591,6 +517,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 3,
                             CubicCentimeters = 1300.00m,
                             Description = "This bike is for riding on the road and it's one of the fastest bikes ever!",
+                            GoldenClientId = 1,
                             ImageUrl = "https://dizzyriders.bg/uploads/thumbs/gallery/2021-02/fe6c02c5a7fe382814b184f1c9e0bb62-620x427.jpg",
                             IsActive = false,
                             PricePerDay = 200.00m,
@@ -603,6 +530,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 4,
                             CubicCentimeters = 1250.00m,
                             Description = "This bike is for long and comfortable riding on the road!",
+                            GoldenClientId = 2,
                             ImageUrl = "https://ultimatemotorcycling.com/wp-content/uploads/2021/07/2022-bmw-r-1250-rt-first-look-sport-touring-motorcycle-10.jpg",
                             IsActive = false,
                             PricePerDay = 200.00m,
@@ -615,6 +543,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 5,
                             CubicCentimeters = 900.00m,
                             Description = "This bike is for easy riding on the road!",
+                            GoldenClientId = 1,
                             ImageUrl = "https://imgd.aeplcdn.com/1280x720/bw/models/triumph-street-twin-2021-standard20210401131021.jpg?q=80",
                             IsActive = false,
                             PricePerDay = 100.00m,
@@ -627,6 +556,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 6,
                             CubicCentimeters = 155.00m,
                             Description = "This bike is for riding on the road mostly in the city!",
+                            GoldenClientId = 2,
                             ImageUrl = "https://www.indiacarnews.com/wp-content/uploads/2019/03/Yamaha-MT-15-International.jpg",
                             IsActive = false,
                             PricePerDay = 100.00m,
@@ -639,6 +569,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 7,
                             CubicCentimeters = 990.00m,
                             Description = "This adventure is for almost any terreain!",
+                            GoldenClientId = 1,
                             ImageUrl = "https://mcn-images.bauersecure.com/wp-images/19502/951x634/990_adventure_dakar.jpg?mode=max&quality=90&scale=down",
                             IsActive = false,
                             PricePerDay = 100.00m,
@@ -651,6 +582,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 9,
                             CubicCentimeters = 1868.00m,
                             Description = "This bike outstanding cafe racer!",
+                            GoldenClientId = 2,
                             ImageUrl = "https://www.harley-davidson.com/content/dam/h-d/images/product-images/bikes/motorcycle/2022/2022-fat-boy-114/gallery/2022-fat-boy-114-motorcycle-g2.jpg?impolicy=myresize&rw=820",
                             IsActive = false,
                             PricePerDay = 200.00m,
@@ -663,6 +595,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 9,
                             CubicCentimeters = 1811.00m,
                             Description = "This bike is greatest chief of indians!",
+                            GoldenClientId = 1,
                             ImageUrl = "https://www.webbikeworld.com/wp-content/uploads/2022/07/2022-Indian-Scout-Bobber-Sixty-4.jpg",
                             IsActive = false,
                             PricePerDay = 200.00m,
@@ -675,6 +608,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                             CategoryId = 2,
                             CubicCentimeters = 300.00m,
                             Description = "This bike is magnificent mountain climber!",
+                            GoldenClientId = 2,
                             ImageUrl = "https://enduro21.com/images/2021/november-2021/2022-beta-300-rx/2022_beta_300_rx_1.jpg",
                             IsActive = false,
                             PricePerDay = 100.00m,
@@ -682,7 +616,106 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.UserMotorbike", b =>
+            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "81693837-9353-4dac-a5f2-4eade35a30f9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d4cf6195-dd79-4c57-92af-9feb9b38d5fc",
+                            Email = "goldenclient@mail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "goldenclient@mail.com",
+                            NormalizedUserName = "goldenclient@mail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBocpm0fXLnZR/ghFI3zWBWds38+SWIoOMJaXS/0uESWcX8N9tgUVCsC6l+zY18WNA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "aae1c1bd-a002-4bc2-809f-5645adecdf4e",
+                            TwoFactorEnabled = false,
+                            UserName = "goldenclient@mail.com"
+                        },
+                        new
+                        {
+                            Id = "8700b0e1-1cc6-4e31-81d8-0dc734f1d679",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2f136dc9-d9d9-4cdb-8cb1-e4067d57fb47",
+                            Email = "guest@mail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "guest@mail.com",
+                            NormalizedUserName = "guest@mail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEACm/mpWGi9kvpPUpY/gR5GSSfLsQUFOPdG4G+ExVoAaZZvX5EyT8bNzOJzr2MrbQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e07168a1-85e2-4dd8-9f94-5b77a53253a0",
+                            TwoFactorEnabled = false,
+                            UserName = "guest@mail.com"
+                        });
+                });
+
+            modelBuilder.Entity("MyFavoriteMotorbike.Infrastructure.Data.Entities.GoldenClient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -690,11 +723,10 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MotorbikeId")
-                        .HasColumnType("int");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -702,53 +734,16 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("MotorbikeId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserMotorbikes");
-                });
-
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("User");
+                    b.ToTable("GoldenClients");
 
                     b.HasData(
                         new
                         {
-                            Id = "81693837-9353-4dac-a5f2-4eade35a30f9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "672d0b3e-8028-43e2-815f-f2a888b9a4a1",
-                            Email = "administrator@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "administrator@mail.com",
-                            NormalizedUserName = "administrator@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEETFYq+JKzrN4UiqSvlwUeEYQ0RmQAezqSN85ZOi862nNFrf3EBtZ3vgAhaMF9Dc/g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d9b22dbe-7011-4629-bbca-4ba30c3e9dd9",
-                            TwoFactorEnabled = false,
-                            UserName = "administrator@mail.com"
-                        },
-                        new
-                        {
-                            Id = "8700b0e1-1cc6-4e31-81d8-0dc734f1d679",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e40223c-3be7-455c-824b-14c7cc645c19",
-                            Email = "guest@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "guest@mail.com",
-                            NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEILlX/BZ8AYZrtsg16djO+QG6wYV/DxhUbb5BUQh9qqkDmGDxRPz59PQLBB1jlnCXg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "6fb4c86a-1ff9-47cc-911d-2b567bd271ec",
-                            TwoFactorEnabled = false,
-                            UserName = "guest@mail.com"
+                            Id = 1,
+                            PhoneNumber = "+359877777777",
+                            UserId = "81693837-9353-4dac-a5f2-4eade35a30f9"
                         });
                 });
 
@@ -763,7 +758,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -772,7 +767,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -787,7 +782,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -796,7 +791,7 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -824,51 +819,34 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Renter")
+                    b.HasOne("MyFavoriteMotorbike.Infrastructure.Data.Entities.GoldenClient", "GoldenClient")
                         .WithMany()
+                        .HasForeignKey("GoldenClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", "Renter")
+                        .WithMany("Motorbikes")
                         .HasForeignKey("RenterId");
-
-                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", null)
-                        .WithMany("Motorbikes")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.UserMotorbike", null)
-                        .WithMany("Motorbikes")
-                        .HasForeignKey("UserMotorbikeId");
 
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
 
+                    b.Navigation("GoldenClient");
+
                     b.Navigation("Renter");
                 });
 
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.UserMotorbike", b =>
+            modelBuilder.Entity("MyFavoriteMotorbike.Infrastructure.Data.Entities.GoldenClient", b =>
                 {
-                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.Brand", null)
-                        .WithMany("UserMotorbikes")
-                        .HasForeignKey("BrandId");
-
-                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.Motorbike", "Motorbike")
-                        .WithMany("UserMotorbikes")
-                        .HasForeignKey("MotorbikeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("MyFavoriteMotobike.Infrastructure.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Motorbike");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.Brand", b =>
-                {
-                    b.Navigation("UserMotorbikes");
                 });
 
             modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.Category", b =>
@@ -879,16 +857,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Migrations
             modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.CountryOfOrigin", b =>
                 {
                     b.Navigation("Brands");
-                });
-
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.Motorbike", b =>
-                {
-                    b.Navigation("UserMotorbikes");
-                });
-
-            modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.UserMotorbike", b =>
-                {
-                    b.Navigation("Motorbikes");
                 });
 
             modelBuilder.Entity("MyFavoriteMotobike.Infrastructure.Data.Entities.User", b =>

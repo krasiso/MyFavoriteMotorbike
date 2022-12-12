@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MyFavoriteMotorbike.Infrastructure.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -40,7 +41,7 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public bool IsActive { get; set; }
 
         [Required]
-        public string GoldenClientId { get; set; } = null!;
+        public int GoldenClientId { get; set; }
 
         [ForeignKey(nameof(GoldenClientId))]
         public GoldenClient GoldenClient { get; set; } = null!;
@@ -54,8 +55,6 @@ namespace MyFavoriteMotobike.Infrastructure.Data.Entities
         public string? RenterId { get; set; }
 
         [ForeignKey(nameof(RenterId))]
-        public IdentityUser? Renter { get; set; }
-
-        public List<UserMotorbike> UserMotorbikes { get; set; } = new List<UserMotorbike>();
+        public User? Renter { get; set; }
     }
 }

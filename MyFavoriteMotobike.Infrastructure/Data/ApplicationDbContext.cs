@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyFavoriteMotobike.Infrastructure.Data.Configuration;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
+using MyFavoriteMotorbike.Infrastructure.Data.Entities;
 
 namespace MyFavoriteMotorbike.Infrastructure.Data
 {
@@ -22,18 +23,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
             builder.ApplyConfiguration(new BrandConfiguration());
             builder.ApplyConfiguration(new CountryOfOriginConfiguration());
 
-            builder
-                .Entity<GoldenClient>()
-                .HasKey(op => new { op.UserId });
-            builder
-                .Entity<Motorbike>()
-                .HasKey(op => new { op.GoldenClientId, op.CategoryId, op.BrandId });//, op.RenterId });
-            builder
-                .Entity<UserMotorbike>()
-                .HasOne(m => m.Motorbike)
-                .WithMany(um => um.UserMotorbikes)
-                .HasForeignKey(m => m.MotorbikeId);
-
             base.OnModelCreating(builder);
         }
         public DbSet<Brand> Brands { get; set; } = null!;
@@ -41,6 +30,5 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
         public DbSet<CountryOfOrigin> CountriesOfOrigin { get; set; } = null!;
         public DbSet<Motorbike> Motorbikes { get; set; } = null!;
         public DbSet<GoldenClient> GoldenClients { get; set; } = null!;
-        public DbSet<UserMotorbike> UserMotorbikes { get; set; } = null!;
     }
 }

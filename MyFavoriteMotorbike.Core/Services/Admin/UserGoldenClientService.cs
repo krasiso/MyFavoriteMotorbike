@@ -3,6 +3,7 @@ using MyFavoriteMotobike.Infrastructure.Data.Entities;
 using MyFavoriteMotorbike.Core.Contracts.Admin;
 using MyFavoriteMotorbike.Core.Models.Admin;
 using MyFavoriteMotorbike.Infrastructure.Data.Common;
+using MyFavoriteMotorbike.Infrastructure.Data.Entities;
 
 namespace MyFavoriteMotorbike.Core.Services.Admin
 {

@@ -67,7 +67,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(
       name: "motorbikeDetails",
-      pattern: "Motorbike/Details/{id}"///{information}"
+      pattern: "Motorbike/Details/{id}"
     );
 
     endpoints.MapRazorPages();

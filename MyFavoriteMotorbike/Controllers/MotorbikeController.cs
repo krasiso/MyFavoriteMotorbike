@@ -15,7 +15,9 @@ namespace MyFavoriteMotorbike.Controllers
 
         private readonly IGoldenClientService goldenClientService;
 
-        public MotorbikeController(IMotorbikeService _motorbikeService, IGoldenClientService _goldenClientService)
+        public MotorbikeController(
+            IMotorbikeService _motorbikeService, 
+            IGoldenClientService _goldenClientService)
         {
             motorbikeService = _motorbikeService;
             goldenClientService = _goldenClientService;
@@ -40,7 +42,7 @@ namespace MyFavoriteMotorbike.Controllers
         }
 
         public async Task<IActionResult> Mine()
-        {            
+        {
             //var userId = User.Claims.FirstOrDefault(m => m.Type == ClaimTypes.NameIdentifier)?.Value;
             //var model = await motorbikeService.GetMineAsync(userId);
 
@@ -90,7 +92,8 @@ namespace MyFavoriteMotorbike.Controllers
 
             var model = new MotorbikeModel()
             {
-                MotorbikeCategories = await motorbikeService.AllCategories()
+                MotorbikeCategories = await motorbikeService.AllCategories(),
+                MotorbikeBrands = await motorbikeService.AllBrands()
             };
 
             return View(model);

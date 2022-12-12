@@ -75,6 +75,26 @@ namespace MyFavoriteMotorbike.Core.Services
             return result;
         }
 
+        public async Task<IEnumerable<MotorbikeBrandModel>> AllBrands()
+        {
+            return await repo.AllReadonly<Brand>()
+               .OrderBy(c => c.Name)
+               .Select(c => new MotorbikeBrandModel()
+               {
+                   Id = c.Id,
+                   Name = c.Name
+               })
+               .ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> AllBrandsNames()
+        {
+            return await repo.AllReadonly<Brand>()
+                .Select(c => c.Name)
+                .Distinct()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<MotorbikeCategoryModel>> AllCategories()
         {
             return await repo.AllReadonly<Category>()
@@ -99,7 +119,6 @@ namespace MyFavoriteMotorbike.Core.Services
         {
             return await repo.AllReadonly<Motorbike>()
                 .Where(m => m.IsActive)
-                //.Where(m => m.GoldenClientId == GoldenClient.Id)
                 .Select(m => new MotorbikeServiceModel()
                 {
                     Brand = m.Brand.Name,
@@ -210,7 +229,6 @@ namespace MyFavoriteMotorbike.Core.Services
             var motorbike = await repo.AllReadonly<Motorbike>()
                 .Where(m => m.IsActive)
                 .Where(m => m.Id == motorbikeId)
-                //.Include(m => m.GoldenClient)
                 .FirstOrDefaultAsync();
 
             if (motorbike?.GoldenClient != null && motorbike.GoldenClient.UserId == currentUserId)
@@ -271,12 +289,7 @@ namespace MyFavoriteMotorbike.Core.Services
                     PricePerDay = m.PricePerDay,
                     IsRented = m.RenterId != null,
                     Description = m.Description,
-                    Category = m.Category.Name,
-                    //Administrator = new Models.Administrator.AdministratorServiceModel()
-                    //{
-                    //    PhoneNumber = m.Administrator.PhoneNumber,
-                    //    Email = m.Administrator.User.Email
-                    //}
+                    Category = m.Category.Name
                 })
                 .FirstAsync();
         }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MyFavoriteMotobike.Infrastructure.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyFavoriteMotobike.Infrastructure.Data.Entities
+namespace MyFavoriteMotorbike.Infrastructure.Data.Entities
 {
     public class GoldenClient
     {

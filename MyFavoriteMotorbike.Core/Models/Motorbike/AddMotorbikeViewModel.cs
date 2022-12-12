@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyFavoriteMotobike.Infrastructure.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyFavoriteMotorbike.Core.Models.Motorbike
@@ -32,7 +31,5 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
         public int CategoryId { get; set; }
 
         public IEnumerable<MotorbikeCategoryModel> MotorbikeCategories { get; set; } = new List<MotorbikeCategoryModel>();
-
-        //public IEnumerable<Category> Categories { get; set; } = new List<Category>();
     }
 }

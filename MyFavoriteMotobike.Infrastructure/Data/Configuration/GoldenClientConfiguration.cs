@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyFavoriteMotobike.Infrastructure.Data.Entities;
+using MyFavoriteMotorbike.Infrastructure.Data.Entities;
 
 namespace MyFavoriteMotobike.Infrastructure.Data.Configuration
 {
