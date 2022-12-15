@@ -13,13 +13,6 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
             : base(options)
         {
         }
-
-        public DbSet<Brand> Brands { get; set; } = null!;
-        public DbSet<Category> Categories { get; set; } = null!;
-        public DbSet<CountryOfOrigin> CountriesOfOrigin { get; set; } = null!;
-        public DbSet<Motorbike> Motorbikes { get; set; } = null!;
-        public DbSet<GoldenClient> GoldenClients { get; set; } = null!;
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfiguration());
@@ -31,5 +24,12 @@ namespace MyFavoriteMotorbike.Infrastructure.Data
 
             base.OnModelCreating(builder);
         }
+
+        public DbSet<Brand> Brands { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<CountryOfOrigin> CountriesOfOrigin { get; set; } = null!;
+        public DbSet<Motorbike> Motorbikes { get; set; } = null!;
+        public DbSet<GoldenClient> GoldenClients { get; set; } = null!;
+
     }
 }
