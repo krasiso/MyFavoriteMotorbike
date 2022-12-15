@@ -15,12 +15,16 @@ namespace MyFavoriteMotorbike.Controllers
 
         private readonly IGoldenClientService goldenClientService;
 
+        private readonly ILogger logger;
+
         public MotorbikeController(
-            IMotorbikeService _motorbikeService, 
-            IGoldenClientService _goldenClientService)
+            IMotorbikeService _motorbikeService,
+            IGoldenClientService _goldenClientService,
+            ILogger<MotorbikeController> _logger)
         {
             motorbikeService = _motorbikeService;
             goldenClientService = _goldenClientService;
+            logger = _logger;
         }
 
         [HttpGet]
@@ -50,7 +54,7 @@ namespace MyFavoriteMotorbike.Controllers
 
             if (User.IsInRole(AdminRoleName))
             {
-                return RedirectToAction("Mine", "House", new { area = AreaName });
+                return RedirectToAction("Mine", "Motorbike", new { area = AreaName });
             }
 
             IEnumerable<MotorbikeServiceModel> myMotorbikes;
@@ -102,6 +106,20 @@ namespace MyFavoriteMotorbike.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(MotorbikeModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                model.MotorbikeCategories = await motorbikeService.AllCategories();
+
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.MotorbikeBrands = await motorbikeService.AllBrands();
+
+                return View(model);
+            }
+
             if (await goldenClientService.ExistsById(User.Id()))
             {
                 return RedirectToAction(nameof(GoldenClientController.Become), "GoldenClient");
@@ -112,16 +130,14 @@ namespace MyFavoriteMotorbike.Controllers
                 ModelState.AddModelError(nameof(model.CategoryId), "Category does not exists!");
             }
 
-            if (!ModelState.IsValid)
+            if (await motorbikeService.BrandExists(model.CategoryId) == false)
             {
-                model.MotorbikeCategories = await motorbikeService.AllCategories();
-
-                return View(model);
+                ModelState.AddModelError(nameof(model.BrandId), "Brand does not exists!");
             }
 
             int goldenClientId = await goldenClientService.GetGoldenClientId(User.Id());
 
-            int id = await motorbikeService.Create(model);
+            int id = await motorbikeService.Create(model, goldenClientId);
 
             return RedirectToAction(nameof(Details), new { id });
         }
@@ -134,7 +150,21 @@ namespace MyFavoriteMotorbike.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            var model = new MotorbikeModel();
+            var motorbike = await motorbikeService.MotorbikeDetailsById(id);
+            var category = await motorbikeService.GetMotorbikeCategoryId(id);
+            var brand = await motorbikeService.AllBrandsNames();
+
+            var model = new MotorbikeModel()
+            {
+                Id = id,
+                Brand = motorbike.Brand,
+                Variety = motorbike.Variety,
+                CubicCentimeters = motorbike.CubicCentimeters,
+                Description = motorbike.Description,
+                PricePerDay = motorbike.PricePerDay,
+                MotorbikeCategories = await motorbikeService.AllCategories(),
+                MotorbikeBrands = await motorbikeService.AllBrands()
+            };
 
             return View(model);
         }

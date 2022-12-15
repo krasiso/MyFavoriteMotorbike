@@ -7,7 +7,7 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
     {
         [Required]
         [StringLength(30, MinimumLength = 2)]
-        public string Brand { get; set; } = null!;
+        public int BrandId { get; set; }
 
         [Required]
         [StringLength(30, MinimumLength = 1)]

@@ -5,11 +5,14 @@ namespace MyFavoriteMotorbike.Core.Contracts
 {
     public interface IMotorbikeService
     {
+        Task AddMotorbikeAsync(AddMotorbikeViewModel model);
+        Task AddMotorbikeToCollectionAsync(int motorbikeId, string userId);
         Task<IEnumerable<MotorbikeHomePageModel>> LastRentedMotorbikes();
         Task<IEnumerable<MotorbikeCategoryModel>> AllCategories();
         Task<IEnumerable<MotorbikeBrandModel>> AllBrands();
         Task<bool> CategoryExists(int categoryId);
-        Task<int> Create(MotorbikeModel model);
+        Task<bool> BrandExists(int brandId);
+        Task<int> Create(MotorbikeModel model, int goldenClient);
         Task<MotorbikesQueryModel> All(
             string? category = null,
             string? searchTerm = null,

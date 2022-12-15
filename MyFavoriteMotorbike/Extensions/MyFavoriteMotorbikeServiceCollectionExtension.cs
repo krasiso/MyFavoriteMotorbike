@@ -1,6 +1,8 @@
 ﻿using MyFavoriteMotorbike.Core.Contracts;
+using MyFavoriteMotorbike.Core.Contracts.Admin;
 using MyFavoriteMotorbike.Core.Exceptions;
 using MyFavoriteMotorbike.Core.Services;
+using MyFavoriteMotorbike.Core.Services.Admin;
 using MyFavoriteMotorbike.Infrastructure.Data.Common;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -13,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IMotorbikeService, MotorbikeService>();
             services.AddScoped<IGoldenClientService, GoldenClientService>();
             services.AddScoped<IGuard, Guard>();
+            services.AddScoped<IUserGoldenClientService, UserGoldenClientService>();
 
             return services;
         }

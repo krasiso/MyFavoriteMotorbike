@@ -5,6 +5,7 @@ using MyFavoriteMotorbike.Core.Exceptions;
 using MyFavoriteMotorbike.Core.Models.Motorbike;
 using MyFavoriteMotorbike.Core.Models.Sorting;
 using MyFavoriteMotorbike.Infrastructure.Data.Common;
+using Microsoft.Extensions.Logging;
 
 namespace MyFavoriteMotorbike.Core.Services
 {
@@ -14,12 +15,26 @@ namespace MyFavoriteMotorbike.Core.Services
 
         private readonly IGuard guard;
 
+        private readonly ILogger logger;
+
         public MotorbikeService(
             IRepository _repo,
-            IGuard _guard)
+            IGuard _guard,
+            ILogger<MotorbikeService> _logger)
         {
             repo = _repo;
             guard = _guard;
+            logger = _logger;
+        }
+
+        public Task AddMotorbikeAsync(AddMotorbikeViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddMotorbikeToCollectionAsync(int motorbikeId, string userId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<MotorbikesQueryModel> All(
@@ -62,8 +77,9 @@ namespace MyFavoriteMotorbike.Core.Services
                 .Take(motorbikesPerPage)
                 .Select(m => new MotorbikeServiceModel()
                 {
-                    Brand = m.Brand.Name,
                     Id = m.Id,
+                    Brand = m.Brand.Name,
+                    Variety = m.Variety,
                     ImageUrl = m.ImageUrl,
                     PricePerDay = m.PricePerDay,
                     IsRented = m.RenterId != null
@@ -146,13 +162,19 @@ namespace MyFavoriteMotorbike.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<bool> BrandExists(int brandId)
+        {
+            return await repo.AllReadonly<Brand>()
+                .AnyAsync(c => c.Id == brandId);
+        }
+
         public async Task<bool> CategoryExists(int categoryId)
         {
             return await repo.AllReadonly<Category>()
                 .AnyAsync(c => c.Id == categoryId);
         }
 
-        public async Task<int> Create(MotorbikeModel model)
+        public async Task<int> Create(MotorbikeModel model, int goldenClientId)
         {
             var motorbike = new Motorbike()
             {
@@ -161,11 +183,20 @@ namespace MyFavoriteMotorbike.Core.Services
                 CubicCentimeters = model.CubicCentimeters,
                 ImageUrl = model.ImageUrl,
                 PricePerDay = model.PricePerDay,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                GoldenClientId = goldenClientId
             };
 
-            await repo.AddAsync(motorbike);
-            await repo.SaveChangesAsync();
+            try
+            {
+                await repo.AddAsync(motorbike);
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(nameof(Create), ex);
+                throw new ApplicationException("Info in the database is not saved!", ex);
+            }            
 
             return motorbike.Id;
         }
@@ -211,6 +242,7 @@ namespace MyFavoriteMotorbike.Core.Services
                     Id = m.Id,
                     Brand = m.Brand.Name,
                     Variety = m.Variety,
+                    CubicCentimeters = m.CubicCentimeters,
                     ImageUrl = m.ImageUrl,
                     PricePerDay = m.PricePerDay,
                     IsRented = m.RenterId == userId
@@ -245,9 +277,9 @@ namespace MyFavoriteMotorbike.Core.Services
         }
 
         public async Task<bool> IsRentedByUserWithId(int motorbikeId, string currentUserId)
-        {
+        {     
             bool result = false;
-            var motorbike = await repo.AllReadonly<Motorbike>()
+            var motorbike = await repo.AllReadonly<Motorbike>()  
                 .Where(m => m.IsActive && m.Id == motorbikeId)
                 .FirstOrDefaultAsync();
 

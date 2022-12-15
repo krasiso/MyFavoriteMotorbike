@@ -11,6 +11,8 @@ namespace MyFavoriteMotorbike.Core.Models.Motorbike
 
         public string Variety { get; init; } = null!;
 
+        public decimal CubicCentimeters { get; set; }
+
         [Display(Name = "Image URL")]
         public string ImageUrl { get; init; } = null!;
 
